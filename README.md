@@ -8,16 +8,16 @@ How To Use
 --------------
 [![Get it on Google Play](https://raw.github.com/repat/README-template/master/googleplay.png)](https://play.google.com/store/apps/details?id=com.aivarsda.certpinning.demo)
 - 1. In you class implement the IPinnerCallback:
-'''java
+```java
  @Override
  public void onTaskPinningCompleted(PinnedConnectionResponse pinnedConnectionResponse)
  {
  	//Your logic after pinnedConnectionResponse is returned ...//
  }
- '''
+```
  
 - 2. Pinning the connection as following:
-'''java
+```java
  private void execPinnedConection()
  {
  	String[] trustedPinsSet 	= new String[] {"a36012xcc17c231ac1ag6b788e610c8k75418t543"};
@@ -27,7 +27,7 @@ How To Use
  	PinnedConnectionRequest  pinnedConnectionRequest = new PinnedConnectionRequest("GET",serverUrl);
  	httpsPinner.getPinnedHttpsConnectionTask(this).execute(pinnedConnectionRequest);
  }
- '''
+```
 
 
 ## Contact

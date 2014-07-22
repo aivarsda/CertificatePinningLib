@@ -21,7 +21,7 @@ How To Use
  private void execPinnedConection()
  {
  	String[] trustedPinsSet 	= new String[] {"a36012xcc17c231ac1ag6b788e610c8k75418t543"};
- 	URL serverUrl		= new URL("https://YOUR_SERVER_URL");
+ 	URL serverUrl            = new URL("https://YOUR_SERVER_URL");
  
  	HttpsPinner httpsPinner = new HttpsPinner(trustedPinsSet,false);
  	PinnedConnectionRequest  pinnedConnectionRequest = new PinnedConnectionRequest("GET",serverUrl);
@@ -30,7 +30,7 @@ How To Use
 ```
 
 
-## Contact
+## Contact Developer
 Aivars Dalderis
 * e-mail: <aivars.dalderis@gmail.com>
 * LinkedIn: [Aivars LinkedIn](http://il.linkedin.com/in/aivarsd)

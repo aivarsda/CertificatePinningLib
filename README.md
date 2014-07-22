@@ -2,7 +2,7 @@ CertificatePinningLib
 =====================
 The library allows you to pin the server certificates by using the HttpsURLConnection.
 You will be able to validate the certificate chain and ensure that one of the pins in 
-the specified/trusted SubjectPublicKeyInfos appears in the valid certificate chain.
+the specified/trusted set of SubjectPublicKeyInfos appears in the valid certificate chain.
 
 How To Use
 --------------

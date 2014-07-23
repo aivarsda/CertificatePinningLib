@@ -7,7 +7,7 @@ the specified/trusted set of SubjectPublicKeyInfos appears in the valid certific
 How To Use
 --------------
 [![Get it on Google Play](https://raw.github.com/repat/README-template/master/googleplay.png)](https://play.google.com/store/apps/details?id=com.aivarsda.certpinning.demo)
-- 1. In you class implement the IPinnerCallback:
+- 1. In your class, that will be using the HttpsPinner, implement the IPinnerCallback:
 ```java
  @Override
  public void onTaskPinningSuccess(PinnedConnectionResponse pinnedConnectionResponse) 

@@ -5,5 +5,6 @@ import com.aivarsda.certpinninglib.network.PinnedConnectionResponse;
 
 public interface IPinnerCallback
 {
-	void onTaskPinningCompleted(PinnedConnectionResponse pinnedConnectionResponse);
+	void onTaskPinningSuccess(PinnedConnectionResponse pinnedConnectionResponse);
+	void onTaskPinningFailure(PinnedConnectionResponse pinnedConnectionResponse);
 }

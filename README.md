@@ -10,9 +10,14 @@ How To Use
 - 1. In you class implement the IPinnerCallback:
 ```java
  @Override
- public void onTaskPinningCompleted(PinnedConnectionResponse pinnedConnectionResponse)
+ public void onTaskPinningSuccess(PinnedConnectionResponse pinnedConnectionResponse) 
  {
- 	//Your logic after pinnedConnectionResponse is returned ...//
+ 	 //Your logic on connection pinning success ...//
+ }
+ @Override
+ public void onTaskPinningFailure(PinnedConnectionResponse pinnedConnectionResponse) 
+ {
+ 	 //Your logic on connection pinning failure ...//
  }
 ```
  

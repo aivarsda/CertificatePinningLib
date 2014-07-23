@@ -71,7 +71,7 @@ import android.os.AsyncTask;
  *         android.util.Log
  *         </p>
  *<pre>
- *<u>In you class implement the IPinnerCallback:</u>
+ *<u>In your class, that will be using the HttpsPinner, implement the IPinnerCallback:</u>
  *
  *-@Override
  *public void onTaskPinningSuccess(PinnedConnectionResponse pinnedConnectionResponse) 
@@ -84,7 +84,7 @@ import android.os.AsyncTask;
  *	//Your logic on connection pinning failure ...//
  *}
  *
- *<u>Pinning the connection as following:</u>
+ *<u>Pinning the connection with HttpsPinner as following:</u>
  *private void execPinnedConection()
  *{
  *	String[] trustedPinsSet 	= new String[] {"a36012xcc17c231ac1ag6b788e610c8k75418t543"};

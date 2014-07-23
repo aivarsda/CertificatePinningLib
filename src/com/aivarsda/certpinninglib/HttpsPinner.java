@@ -26,7 +26,6 @@
 package com.aivarsda.certpinninglib;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.MessageDigest;
@@ -73,10 +72,16 @@ import android.os.AsyncTask;
  *         </p>
  *<pre>
  *<u>In you class implement the IPinnerCallback:</u>
- *aOverride
- *public void onTaskPinningCompleted(PinnedConnectionResponse pinnedConnectionResponse)
+ *
+ *-@Override
+ *public void onTaskPinningSuccess(PinnedConnectionResponse pinnedConnectionResponse) 
  *{
- *	//Your logic after pinnedConnectionResponse is returned ...//
+ *	//Your logic on connection pinning success ...//
+ *}
+ *-@Override
+ *public void onTaskPinningFailure(PinnedConnectionResponse pinnedConnectionResponse) 
+ *{
+ *	//Your logic on connection pinning failure ...//
  *}
  *
  *<u>Pinning the connection as following:</u>
@@ -167,7 +172,6 @@ public class HttpsPinner
 		 */
 		private PinnedConnectionResponse getPinnedHttpsURLConnection(PinnedConnectionRequest pinnedConnectionRequest)
 		{
-			InputStream isConOutputRes = null;
 			PinnedConnectionResponse pinnedConnectionResponse = new PinnedConnectionResponse();
 			
 			try
@@ -184,14 +188,18 @@ public class HttpsPinner
 				catch (MalformedURLException e)
 				{
 					e.printStackTrace();
-					pinnedConnectionResponse.setConnResponse("Err: MalformedURL -> "+e.toString());
+					pinnedConnectionResponse.setResponseCode(900);
+					pinnedConnectionResponse.setResponseMessage("MalformedURL");
+					pinnedConnectionResponse.setConnResponse(e.toString());
 				}
 
 				if(url!=null)
 				{
 					if (!url.getProtocol().equals("https"))
 					{
-						pinnedConnectionResponse.setConnResponse("Err: Attempt to construct pinned non-https connection!");
+						pinnedConnectionResponse.setResponseCode(900);
+						pinnedConnectionResponse.setResponseMessage("Non-HTTPS Connection");
+						pinnedConnectionResponse.setConnResponse("Error: Attempt to construct pinned non-https connection!");
 					}
 					else
 					{
@@ -200,19 +208,27 @@ public class HttpsPinner
 						httpsURLConnection.connect();
 						
 						Log.w(TAG, "Https Connection Cipher Suite : " + httpsURLConnection.getCipherSuite());
-						if (httpsURLConnection.getResponseCode() == HttpsURLConnection.HTTP_OK)
+						pinnedConnectionResponse.setResponseCode(httpsURLConnection.getResponseCode());
+						pinnedConnectionResponse.setResponseMessage(httpsURLConnection.getResponseMessage());
+						if (isConnectionSuccessful(httpsURLConnection.getResponseCode()))
 						{
 							boolean isConnectionTrusted = validateTrustedPins(httpsURLConnection);
 							pinnedConnectionResponse.setConTrusted(isConnectionTrusted);
 							if(isConnectionTrusted)
 							{
-								isConOutputRes = httpsURLConnection.getInputStream();
-								pinnedConnectionResponse.setConnResponse(StringUtil.inputStreamToString(isConOutputRes));
+								pinnedConnectionResponse.setConnResponse(
+										StringUtil.inputStreamToString(httpsURLConnection.getInputStream()));
 							}
 							else
 							{
-								pinnedConnectionResponse.setConnResponse("Err: Connection Not Trusted");
+								pinnedConnectionResponse.setConnResponse(
+										StringUtil.inputStreamToString(httpsURLConnection.getErrorStream()));
 							}
+						}
+						else
+						{
+							pinnedConnectionResponse.setConnResponse(
+									StringUtil.inputStreamToString(httpsURLConnection.getErrorStream()));
 						}
 					}
 				}
@@ -234,7 +250,20 @@ public class HttpsPinner
 		@Override
 		protected void onPostExecute(PinnedConnectionResponse pinnedConnectionResponse)
 		{
-			pinnerTaskCallbackListener.onTaskPinningCompleted(pinnedConnectionResponse);
+			if(isConnectionSuccessful(pinnedConnectionResponse.getResponseCode()) && pinnedConnectionResponse.isConTrusted())
+			{
+				pinnerTaskCallbackListener.onTaskPinningSuccess(pinnedConnectionResponse);
+			}
+			else
+			{
+				pinnerTaskCallbackListener.onTaskPinningFailure(pinnedConnectionResponse);
+			}
+			
+		}
+		
+		private boolean isConnectionSuccessful(int responseCode)
+		{
+			return (responseCode >=200 && responseCode<300) ? true : false;
 		}
 	}
 

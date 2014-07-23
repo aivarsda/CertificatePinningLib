@@ -21,7 +21,7 @@ How To Use
  }
 ```
  
-- 2. Pinning the connection as following:
+- 2. Pinning the connection with HttpsPinner as following:
 ```java
  private void execPinnedConection()
  {

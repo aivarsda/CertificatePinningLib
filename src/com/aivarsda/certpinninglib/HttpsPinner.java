@@ -99,9 +99,9 @@ import android.os.AsyncTask;
  */
 public class HttpsPinner
 {
-	public static final String	TAG								= "HttpsPinner";
-	public static final String	CALLBACK_KEY_IS_SERVER_TRUSTED	= "IS_SERVER_TRUSTED";
-	private boolean 			_stopPinningWhenTrusdedFound 	= false;
+	public static final String	TAG				= "HttpsPinner";
+	private static final int	CONNECTION_TIMEOUT		= 17000;
+	private boolean 		_stopPinningWhenTrusdedFound 	= false;
 
 	/**
 	 * Is an array of encoded pins, it will be matched against the certificate
@@ -205,6 +205,7 @@ public class HttpsPinner
 					{
 						httpsURLConnection = (HttpsURLConnection) url.openConnection();
 						httpsURLConnection.setRequestMethod(pinnedConnectionRequest.getMethod());
+						httpsURLConnection.setConnectTimeout(CONNECTION_TIMEOUT);
 						httpsURLConnection.connect();
 						
 						Log.w(TAG, "Https Connection Cipher Suite : " + httpsURLConnection.getCipherSuite());

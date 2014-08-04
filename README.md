@@ -11,7 +11,7 @@ How To Use
 [![Get it on Google Play](https://lh3.ggpht.com/pVdyjPTdweDrZHmxPPjXKVD2YIVGUwOqoiY-ppznhQbD5x54ql8IlwgvxLfhPMn3XJ8=h310-rw)](https://play.google.com/store/apps/details?id=com.aivarsda.certpinning.demo)
 [![Get it on Google Play](https://lh4.ggpht.com/mzmSWpNjCNlpU52aCIE7wGOcjWJJndRc8OjmAB7_rSNKn3MFvvy1iNx8QE50P9b4Yd5P=h310-rw)](https://play.google.com/store/apps/details?id=com.aivarsda.certpinning.demo)
 [![Get it on Google Play](https://lh5.ggpht.com/onAIPFYkMT-O4kXEb1nP9N9T9YE7HseOOyRIfCHi-R0QizBiACuGo85r4pRF82_lUMwS=h310-rw)](https://play.google.com/store/apps/details?id=com.aivarsda.certpinning.demo)
-- 1. In your class, that will be using the HttpsPinner, implement the IPinnerCallback:
+- <b>1. In your class, that will be using the HttpsPinner, implement the IPinnerCallback:</b>
 ```java
  @Override
  public void onTaskPinningSuccess(PinnedConnectionResponse pinnedConnectionResponse) 
@@ -25,7 +25,7 @@ How To Use
  }
 ```
  
-- 2. Pinning the connection with HttpsPinner as following:
+- <b>2. Pinning the connection with HttpsPinner as following:</b>
 ```java
  private void execPinnedConection()
  {
